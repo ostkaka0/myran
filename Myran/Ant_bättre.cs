@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,30 +7,21 @@ using System.Drawing;
 
 namespace Myran
 {
-    public class Ant : Node
+    class Ant_bättre : Node
     {
         protected Color color;
-        protected Color pathColor;
         int angle;
 
-        public Ant(Board board, Random random) : base(board, 1, random)
+        public Ant_bättre(Board board, Random random) : base(board, 1, random)
         {
-            this.pathColor = ColorFromHue(random.Next(1536));
-            this.color = Color.FromArgb(pathColor.R + 64, pathColor.G + 64, pathColor.B + 64);
+            this.color = this.ColorFromHue(random.Next(1536));
             this.angle = random.Next(4);
         }
 
-        public Ant(Board board, Random random, int color) : base(board, 1, random)
+        public Ant_bättre(Board board, Random random, int color) : base(board, 1, random)
         {
-            this.pathColor = ColorFromHue(color);
-            this.color = Color.FromArgb(pathColor.R + 64, pathColor.G + 64, pathColor.B + 64);
-        }
-
-        public Ant(Board board, Random random, Color color, int angle) : base(board, 1, random)
-        {
-            this.color = color;
-            this.color = Color.FromArgb(pathColor.R + 64, pathColor.G + 64, pathColor.B + 64);
-            this.angle = angle;
+            this.color = this.ColorFromHue(color);
+            this.angle = random.Next(4);
         }
 
         public override void OnChange(Board board, Random random, int x, int y)
@@ -38,37 +29,31 @@ namespace Myran
             int newX = x + ((angle % 2 == 0) ? angle - 1 : 0);
             int newY = y + ((angle % 2 == 1) ? angle - 2 : 0);
 
-            if (board.getSquare(newX, newY) is Square &&
-                GetColorDifference(((Square)board.getSquare(newX, newY)).color) < 64)
+            if (/*om myran är i en myrbas med samma färg* /false)
             {
-                //angle = random.Next(4);
-
-                //newX = x + ((angle % 2 == 0) ? angle - 1 : 0);
-                //newY = y + ((angle % 2 == 1) ? angle - 2 : 0);
                 if (random.Next(64) == 0)
                     angle = random.Next(4);
             }
-            else
+            else /*om myran är utanför basen* /
             {
-                //if (random.Next(2) == 0)
-                    angle = random.Next(4);
+                angle = random.Next(4);
             }
 
             Node oldSquare = board.getSquare(newX, newY);
 
-            if (oldSquare == null ||
-                oldSquare is Square && (GetColorDifference(((Square)oldSquare).color) < 127 || random.Next(GetColorDifference(((Square)oldSquare).color)>>4) == 0))
+            if (oldSquare == null || /* om myran kan gå på denna ruta * /
+                oldSquare is Square && (GetColorDifference(((Square)oldSquare).color) < 127 || random.Next(32) == 0))
             {
-                if (board.SetSquare(newX, newY, this))
+                if (board.SetSquare(newX, newY, this)) //om position är giltig
                 {
-                        board.SetSquare(x, y, new Square(board, this.steps, random, this.pathColor));
+                    this.OnWalk();//board.SetSquare(x, y, new Square(board, this.steps, random, this.pathColor));
                 }
-                else
+                else /*försäkrar liv på myran, fuskkodat* /
                 {
                     board.SetSquare(x, y, this);
                 }
             }
-            else
+            else /*försäkrar liv på myran, fuskkodat* /
             {
                 board.SetSquare(x, y, this);
             }
@@ -79,9 +64,28 @@ namespace Myran
             DrawSquare(board, x, y, ref bitmap, this.color);//Color.White);//bitmap.SetPixel(x * board.SquareSize, y * board.SquareSize, Color.White);
         }
 
+        protected abstract void OnWalk();
+
+        protected abstract bool IsWalkAble();
+
         private int GetColorDifference(Color c)
         {
-            return Math.Abs(this.pathColor.R - c.R) + Math.Abs(this.pathColor.G - c.G) + Math.Abs(this.pathColor.B - c.B);
+            int colorDifference = Math.Abs(this.color.R - c.R) + Math.Abs(this.color.G - c.G) + Math.Abs(this.color.B - c.B);
+            int lightness = (c.R > c.G)?
+                ((c.R > c.B)? c.R:c.B) :
+                ((c.G > c.B)? c.G:c.B);
+
+            return colorDifference * lightness / 256;
+        }
+
+        private int GetHueDifference(Color c)
+        {
+            int colorDifference = Math.Abs(this.color.R - c.R) + Math.Abs(this.color.G - c.G) + Math.Abs(this.color.B - c.B);
+            int lightness = (c.R > c.G) ?
+                ((c.R > c.B) ? c.R : c.B) :
+                ((c.G > c.B) ? c.G : c.B);
+
+            return colorDifference * 256 / lightness;
         }
 
 
@@ -121,5 +125,7 @@ namespace Myran
 
             return color;
         }
+
     }
 }
+*/

@@ -17,19 +17,23 @@ namespace Myran
 
         private int columns = 0;
         private int rows = 0;
+        private int squareSize = 2;
         private bool sizeChanged = true;
         private Thread thread;
         private bool enabled = true;
         private Random random = new Random();
-        private Queue<KeyValuePair<int, int>> changedSquares = new Queue<KeyValuePair<int, int>>();
-        private Queue<KeyValuePair<int, int>> oldChangedSquares;
+        private Stack<Position> changedSquares = new Stack<Position>();
+        private Stack<Position> oldChangedSquares;
+        private Stack<Position> squaresToDraw = new Stack<Position>();
+        private Bitmap bitmap;
 
         public Board()
             : base()
         {
-            this.columns = this.Width >> 4;
-            this.rows = this.Height >> 4;
-            this.Image = new Bitmap(this.Width, this.Height);
+            //this.Clear();
+            //this.columns = this.Width/squareSize;
+            //this.rows = this.Height / squareSize;
+            //this.bitmap = new Bitmap(this.Width, this.Height);
             //this.nodes = new Node[this.columns, this.rows];
             //this.nodes[1, 1] = new Ant(this, random);
 
@@ -39,9 +43,10 @@ namespace Myran
         public Board(IContainer container)
             : base()
         {
-            this.columns = this.Width >> 4;
-            this.rows = this.Height >> 4;
-            this.Image = new Bitmap(this.Width, this.Height);
+            //this.Clear();
+            //this.columns = this.Width/squareSize;
+            //this.rows = this.Height/squareSize;
+            //this.bitmap = new Bitmap(this.Width, this.Height);
             //this.nodes = new Node[this.columns, this.rows];
             //this.nodes[1, 1] = new Ant(this, random);
 
@@ -52,11 +57,11 @@ namespace Myran
 
         public Board(int columns, int rows)
         {
-
+            //this.Clear();
             //this.Image = new Bitmap(34, 34);
             //this.Columns = columns;
             //this.Rows = rows;
-            this.nodes[0, 0] = new Ant(this, random);
+            //this.nodes[0, 0] = new Ant(this, random);
         }
 
         public bool SetSquare(int x, int y, Node square)
@@ -64,7 +69,8 @@ namespace Myran
             if (x >= 0 && y >= 0 && x < columns && y < rows)
             {
                 nodes[x, y] = square;
-                changedSquares.Enqueue(new KeyValuePair<int, int>(x, y));
+                changedSquares.Push(new Position(x, y));
+                squaresToDraw.Push(new Position(x, y));
                 return true;
             }
             return false;
@@ -82,6 +88,11 @@ namespace Myran
             }
         }
 
+        public void SetPixel(int x, int y, Color color)
+        {
+
+        }
+
         public void Update()
         {
             if (this.enabled)
@@ -91,59 +102,88 @@ namespace Myran
                 {
                     if (nodes == null)
                     {
-                        this.columns = this.Width >> 0;
-                        this.rows = this.Height >> 0;
-                        this.Image = new Bitmap(this.Width, this.Height);
-                        this.nodes = new Node[this.columns, this.rows];
-                        for (int i = 0; i < 200; i++)
-                        {
-                            int x = random.Next(columns);
-                            int y = random.Next(rows);
-                            this.nodes[x, y] = new Ant(this, random);
-                        }
-
-
-                        for (int y = 0; y < this.rows; y++)
-                        {
-                            for (int x = 0; x < this.columns; x++)
-                            {
-                                if (nodes[x, y] == null)
-                                {
-                                    //nodes[x, y] = new Square(this, 0, random);
-                                }
-                                else
-                                {
-                                    nodes[x, y].OnChange(this, random, x, y);
-                                }
-                            }
-                        }
+                        this.Reset(this.squareSize);
                     }
                     oldChangedSquares = changedSquares;
-                    changedSquares = new Queue<KeyValuePair<int, int>>();
+                    changedSquares = new Stack<Position>();
 
                     while (oldChangedSquares.Count > 0)
                     {
-                        var pos = oldChangedSquares.Dequeue();
-                        if (nodes[pos.Key, pos.Value] != null)
-                            nodes[pos.Key, pos.Value].OnChange(this, random, pos.Key, pos.Value);
+                        Position pos = oldChangedSquares.Pop();
+                        if (nodes[pos.x, pos.y] != null)
+                            nodes[pos.x, pos.y].OnChange(this, random, pos.x, pos.y);
                     }
                 }
 
-                Bitmap bitmap = (Bitmap)this.Image;
-
-                for (int y = 0; y < rows; y++)
+                /*for (int y = 0; y < rows; y++)
                 {
                     for (int x = 0; x < columns; x++)
                     {
                         if (nodes[x, y] != null)
                         {
 
-                            nodes[x, y].Draw(x, y, ref bitmap);
+                            nodes[x, y].Draw(this, x, y, ref bitmap);
 
                         }
                     }
+                }*/
+
+                while (squaresToDraw.Count > 0)
+                {
+                    Position pos = squaresToDraw.Pop();
+                    nodes[pos.x, pos.y].Draw(this, pos.x, pos.y, ref bitmap);
                 }
+
                 this.Image = bitmap;
+            }
+        }
+
+        public void Reset(int squareSize)
+        {
+            this.squareSize = squareSize;
+            this.columns = this.Width / squareSize;
+            this.rows = this.Height / squareSize;
+            this.bitmap = new Bitmap(this.Width, this.Height);
+            this.Image = this.bitmap;
+            this.nodes = new Node[this.columns, this.rows];
+
+            changedSquares.Clear();
+            oldChangedSquares = null;
+            squaresToDraw.Clear();
+
+            for (int i = 0; i > 16; i++)
+            {
+                int color = random.Next(6 * 256);
+
+                int x = random.Next(columns);//columns / 16*7 + random.Next(columns/8);
+                int y = random.Next(rows);//columns / 16*7 + random.Next(rows/8);
+
+                for (int j = 0; j < random.Next(1,i*4+4); j++)
+                {
+                    this.nodes[(x+random.Next(32))%this.columns, (y+random.Next(32))%this.rows] = new Ant(this, random, color + random.Next(128));
+                }
+            }
+
+            for (int j = 0; j < 16; j++)
+            {
+                int x = random.Next(columns);//columns / 16*7 + random.Next(columns/8);
+                int y = random.Next(rows);//columns / 16*7 + random.Next(rows/8)
+                this.nodes[x, y] = new Ant(this, random, random.Next(6 * 256));
+            }
+
+            for (int y = 0; y < this.rows; y++)
+            {
+                for (int x = 0; x < this.columns; x++)
+                {
+                    if (nodes[x, y] == null)
+                    {
+                        //nodes[x, y] = new Square(this, 0, random);
+                    }
+                    else
+                    {
+                        nodes[x, y].OnChange(this, random, x, y);
+                    }
+                }
             }
         }
 
@@ -174,6 +214,14 @@ namespace Myran
             get
             {
                 return this.rows;
+            }
+        }
+
+        public int SquareSize
+        {
+            get
+            {
+                return this.squareSize;
             }
         }
 

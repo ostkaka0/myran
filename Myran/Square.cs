@@ -23,13 +23,13 @@ namespace Myran
             changed = true;
         } 
 
-        public override void Draw(int x, int y, ref Bitmap bitmap)
+        public override void Draw(Board board, int x, int y, ref Bitmap bitmap)
         {
             if (changed)
             {
                 changed = false;
 
-                bitmap.SetPixel(x, y, color); 
+                DrawSquare(board, x, y, ref bitmap, this.color);//bitmap.SetPixel(x * board.SquareSize, y * board.SquareSize, color); 
             }
         }
     }

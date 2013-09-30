@@ -29,12 +29,23 @@ namespace Myran
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.board1.Update();
+            for (int i = 0; i < numericUpDownUpdates.Value; i++)
+                this.board1.Update();
         }
 
         private void board1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void numericUpDownSpeed_ValueChanged(object sender, EventArgs e)
+        {
+            timer1.Interval = (int)numericUpDownSpeed.Value;
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            board1.Reset((int)numericUpDownSquareSize.Value);
         }
     }
 }
