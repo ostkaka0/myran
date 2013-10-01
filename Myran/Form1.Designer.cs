@@ -32,19 +32,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.board1 = new Myran.Board(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.numericUpDownUpdates = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSquareSize = new System.Windows.Forms.NumericUpDown();
             this.buttonClear = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownSpeed = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownUpdates = new System.Windows.Forms.NumericUpDown();
+            this.board1 = new Myran.Board(this.components);
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.board1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpdates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSquareSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpdates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.board1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -67,18 +67,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(882, 682);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // board1
-            // 
-            this.board1.BackColor = System.Drawing.Color.Black;
-            this.board1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.board1.Image = ((System.Drawing.Image)(resources.GetObject("board1.Image")));
-            this.board1.Location = new System.Drawing.Point(3, 3);
-            this.board1.Name = "board1";
-            this.board1.Size = new System.Drawing.Size(676, 676);
-            this.board1.TabIndex = 0;
-            this.board1.TabStop = false;
-            this.board1.Click += new System.EventHandler(this.board1_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.numericUpDownUpdates);
@@ -91,6 +79,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(194, 676);
             this.panel1.TabIndex = 1;
+            // 
+            // numericUpDownUpdates
+            // 
+            this.numericUpDownUpdates.Location = new System.Drawing.Point(65, 55);
+            this.numericUpDownUpdates.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownUpdates.Name = "numericUpDownUpdates";
+            this.numericUpDownUpdates.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownUpdates.TabIndex = 4;
+            this.numericUpDownUpdates.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // numericUpDownSquareSize
             // 
@@ -152,17 +157,17 @@
             0});
             this.numericUpDownSpeed.ValueChanged += new System.EventHandler(this.numericUpDownSpeed_ValueChanged);
             // 
-            // numericUpDownUpdates
+            // board1
             // 
-            this.numericUpDownUpdates.Location = new System.Drawing.Point(65, 55);
-            this.numericUpDownUpdates.Name = "numericUpDownUpdates";
-            this.numericUpDownUpdates.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownUpdates.TabIndex = 4;
-            this.numericUpDownUpdates.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.board1.BackColor = System.Drawing.Color.Black;
+            this.board1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.board1.Image = ((System.Drawing.Image)(resources.GetObject("board1.Image")));
+            this.board1.Location = new System.Drawing.Point(3, 3);
+            this.board1.Name = "board1";
+            this.board1.Size = new System.Drawing.Size(676, 676);
+            this.board1.TabIndex = 0;
+            this.board1.TabStop = false;
+            this.board1.Click += new System.EventHandler(this.board1_Click);
             // 
             // Form1
             // 
@@ -174,12 +179,12 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.board1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpdates)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSquareSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpdates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.board1)).EndInit();
             this.ResumeLayout(false);
 
         }

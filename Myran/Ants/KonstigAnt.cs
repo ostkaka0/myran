@@ -1,24 +1,28 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Myran
+namespace Myran.Ants
 {
-    class Ant_bättre : Node
+    abstract class KonstigAnt : Node
     {
         protected Color color;
         int angle;
+        int energy;
+        readonly int maxEnergy;
 
-        public Ant_bättre(Board board, Random random) : base(board, 1, random)
+
+        public KonstigAnt(Board board, Random random) : base(board, 1, random)
         {
             this.color = this.ColorFromHue(random.Next(1536));
             this.angle = random.Next(4);
+            this.energy = maxEnergy;
         }
 
-        public Ant_bättre(Board board, Random random, int color) : base(board, 1, random)
+        public KonstigAnt(Board board, Random random, int color) : base(board, 1, random)
         {
             this.color = this.ColorFromHue(color);
             this.angle = random.Next(4);
@@ -29,31 +33,31 @@ namespace Myran
             int newX = x + ((angle % 2 == 0) ? angle - 1 : 0);
             int newY = y + ((angle % 2 == 1) ? angle - 2 : 0);
 
-            if (/*om myran är i en myrbas med samma färg* /false)
+            if (/*om myran är i en myrbas med samma färg*/false)
             {
                 if (random.Next(64) == 0)
                     angle = random.Next(4);
             }
-            else /*om myran är utanför basen* /
+            else /*om myran är utanför basen*/
             {
                 angle = random.Next(4);
             }
 
             Node oldSquare = board.getSquare(newX, newY);
 
-            if (oldSquare == null || /* om myran kan gå på denna ruta * /
+            if (oldSquare == null || /* om myran kan gå på denna ruta */
                 oldSquare is Square && (GetColorDifference(((Square)oldSquare).color) < 127 || random.Next(32) == 0))
             {
                 if (board.SetSquare(newX, newY, this)) //om position är giltig
                 {
                     this.OnWalk();//board.SetSquare(x, y, new Square(board, this.steps, random, this.pathColor));
                 }
-                else /*försäkrar liv på myran, fuskkodat* /
+                else /*försäkrar liv på myran, fuskkodat*/
                 {
                     board.SetSquare(x, y, this);
                 }
             }
-            else /*försäkrar liv på myran, fuskkodat* /
+            else /*försäkrar liv på myran, fuskkodat*/
             {
                 board.SetSquare(x, y, this);
             }
@@ -128,4 +132,3 @@ namespace Myran
 
     }
 }
-*/

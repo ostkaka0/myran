@@ -151,20 +151,20 @@ namespace Myran
             oldChangedSquares = null;
             squaresToDraw.Clear();
 
-            for (int i = 0; i > 16; i++)
+            for (int i = 0; i < 3; i++)
             {
                 int color = random.Next(6 * 256);
 
                 int x = random.Next(columns);//columns / 16*7 + random.Next(columns/8);
                 int y = random.Next(rows);//columns / 16*7 + random.Next(rows/8);
 
-                for (int j = 0; j < random.Next(1,i*4+4); j++)
+                for (int j = 0; j < random.Next(8,128); j++)
                 {
-                    this.nodes[(x+random.Next(32))%this.columns, (y+random.Next(32))%this.rows] = new Ant(this, random, color + random.Next(128));
+                    this.nodes[(x+random.Next(64))%this.columns, (y+random.Next(64))%this.rows] = new Ant(this, random, color + random.Next(128));
                 }
             }
 
-            for (int j = 0; j < 16; j++)
+            for (int j = 0; j < 64; j++)
             {
                 int x = random.Next(columns);//columns / 16*7 + random.Next(columns/8);
                 int y = random.Next(rows);//columns / 16*7 + random.Next(rows/8)

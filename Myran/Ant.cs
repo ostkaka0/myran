@@ -35,8 +35,11 @@ namespace Myran
 
         public override void OnChange(Board board, Random random, int x, int y)
         {
-            int newX = x + ((angle % 2 == 0) ? angle - 1 : 0);
-            int newY = y + ((angle % 2 == 1) ? angle - 2 : 0);
+            int newX = x + ((angle % 2 == 0) ? angle - 1 : 0) + board.Columns;
+            int newY = y + ((angle % 2 == 1) ? angle - 2 : 0) + board.Rows;
+
+            newX %= board.Columns;
+            newY %= board.Rows;
 
             if (board.getSquare(newX, newY) is Square &&
                 GetColorDifference(((Square)board.getSquare(newX, newY)).color) < 64)
