@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ants\KonstigAnt.cs" />
+    <Compile Include="oanvända klasser\KonstigAnt.cs" />
     <Compile Include="Ant.cs" />
-    <Compile Include="Ants\Ant_.cs" />
-    <Compile Include="Ants\BuilderAnt.cs" />
-    <Compile Include="Ants\Queen.cs" />
+    <Compile Include="oanvända klasser\Ant_.cs" />
+    <Compile Include="oanvända klasser\BuilderAnt.cs" />
+    <Compile Include="oanvända klasser\Queen.cs" />
     <Compile Include="Board.cs">
       <SubType>Component</SubType>
     </Compile>

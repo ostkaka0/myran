@@ -49,12 +49,20 @@ namespace Myran
                 //newX = x + ((angle % 2 == 0) ? angle - 1 : 0);
                 //newY = y + ((angle % 2 == 1) ? angle - 2 : 0);
                 if (random.Next(64) == 0)
+                {
                     angle = random.Next(4);
+                    new Task(() =>
+                        {
+                            Console.Beep((int)(this.color.R + this.color.G * 8 + this.color.B * 16) / 64 * 100 + 100, 40);
+                        }).Start();
+                    
+                }
             }
             else
             {
                 //if (random.Next(2) == 0)
                     angle = random.Next(4);
+                    //Console.Beep((x + y ^ 440) % 60*60 + 60, 60);
             }
 
             Node oldSquare = board.getSquare(newX, newY);
@@ -64,7 +72,7 @@ namespace Myran
             {
                 if (board.SetSquare(newX, newY, this))
                 {
-                        board.SetSquare(x, y, new Square(board, this.steps, random, this.pathColor));
+                    board.SetSquare(x, y, new Square(board, this.steps, random, this.pathColor));
                 }
                 else
                 {

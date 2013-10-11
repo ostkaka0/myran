@@ -39,6 +39,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownSpeed = new System.Windows.Forms.NumericUpDown();
             this.board1 = new Myran.Board(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpdates)).BeginInit();
@@ -69,6 +71,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.numericUpDownUpdates);
             this.panel1.Controls.Add(this.numericUpDownSquareSize);
             this.panel1.Controls.Add(this.buttonClear);
@@ -82,14 +86,14 @@
             // 
             // numericUpDownUpdates
             // 
-            this.numericUpDownUpdates.Location = new System.Drawing.Point(65, 55);
+            this.numericUpDownUpdates.Location = new System.Drawing.Point(81, 55);
             this.numericUpDownUpdates.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.numericUpDownUpdates.Name = "numericUpDownUpdates";
-            this.numericUpDownUpdates.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownUpdates.Size = new System.Drawing.Size(104, 20);
             this.numericUpDownUpdates.TabIndex = 4;
             this.numericUpDownUpdates.Value = new decimal(new int[] {
             1,
@@ -99,14 +103,14 @@
             // 
             // numericUpDownSquareSize
             // 
-            this.numericUpDownSquareSize.Location = new System.Drawing.Point(65, 29);
+            this.numericUpDownSquareSize.Location = new System.Drawing.Point(81, 29);
             this.numericUpDownSquareSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDownSquareSize.Name = "numericUpDownSquareSize";
-            this.numericUpDownSquareSize.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownSquareSize.Size = new System.Drawing.Size(104, 20);
             this.numericUpDownSquareSize.TabIndex = 3;
             this.numericUpDownSquareSize.Value = new decimal(new int[] {
             2,
@@ -135,7 +139,7 @@
             // 
             // numericUpDownSpeed
             // 
-            this.numericUpDownSpeed.Location = new System.Drawing.Point(65, 3);
+            this.numericUpDownSpeed.Location = new System.Drawing.Point(81, 3);
             this.numericUpDownSpeed.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -148,7 +152,7 @@
             0});
             this.numericUpDownSpeed.MinimumSize = new System.Drawing.Size(10, 0);
             this.numericUpDownSpeed.Name = "numericUpDownSpeed";
-            this.numericUpDownSpeed.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownSpeed.Size = new System.Drawing.Size(104, 20);
             this.numericUpDownSpeed.TabIndex = 0;
             this.numericUpDownSpeed.Value = new decimal(new int[] {
             10,
@@ -168,6 +172,24 @@
             this.board1.TabIndex = 0;
             this.board1.TabStop = false;
             this.board1.Click += new System.EventHandler(this.board1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Size";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Updates/tick:";
             // 
             // Form1
             // 
@@ -200,6 +222,8 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.NumericUpDown numericUpDownSquareSize;
         private System.Windows.Forms.NumericUpDown numericUpDownUpdates;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
 
     }
 }
