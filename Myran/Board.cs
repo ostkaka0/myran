@@ -168,7 +168,7 @@ namespace Myran
             {
                 int x = random.Next(columns);//columns / 16*7 + random.Next(columns/8);
                 int y = random.Next(rows);//columns / 16*7 + random.Next(rows/8)
-                this.nodes[x, y] = new Ant(this, random, random.Next(6 * 256));//new Ants.BuilderAnt(this, random, random.Next(6 * 256), null);
+                this.nodes[x, y] = new Ants.BuilderAnt(this, random, random.Next(6 * 256), null);//new Ant(this, random, random.Next(6 * 256));//
             }
 
             for (int y = 0; y < this.rows; y++)

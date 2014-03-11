@@ -18,7 +18,7 @@ namespace Myran.Ants
         {
             return (node == null ||
                 node is Square &&
-                (GetColorDifference(((Square)node).color) < 127 ||
+                (GetColorDifference(((Square)node).color) < 32 ||
                 random.Next(GetColorDifference(((Square)node).color) >> 4) == 0));
         }
 

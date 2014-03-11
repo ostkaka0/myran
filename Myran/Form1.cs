@@ -12,6 +12,7 @@ namespace Myran
 {
     public partial class Form1 : Form
     {
+        Random random = new Random();
         public Form1()
         {
             InitializeComponent();
@@ -46,6 +47,11 @@ namespace Myran
         private void buttonClear_Click(object sender, EventArgs e)
         {
             board1.Reset((int)numericUpDownSquareSize.Value);
+        }
+
+        private void board1_MouseClick(object sender, MouseEventArgs e)
+        {
+            board1.SetSquare(e.X / board1.SquareSize, e.Y / board1.SquareSize, new Ant(board1,random, Color.Gray, random.Next(4)));
         }
     }
 }

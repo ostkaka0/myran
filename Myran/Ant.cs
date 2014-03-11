@@ -28,7 +28,7 @@ namespace Myran
 
         public Ant(Board board, Random random, Color color, int angle) : base(board, 1, random)
         {
-            this.color = color;
+            this.pathColor = color;
             this.color = Color.FromArgb(pathColor.R + 64, pathColor.G + 64, pathColor.B + 64);
             this.angle = angle;
         }
